@@ -1,0 +1,22 @@
+.left_item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #345;
+  padding: 1em;
+}
+
+.text{
+  text-align: left;
+  margin-left: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  flex: 1;
+}
+
+.text2{
+    text-align: left;
+    font-size: 14px;
+    color: #ffffff;
+    margin-right: 5px;
+  }

@@ -1,0 +1,27 @@
+.fade_color {
+  transition-property: border-color, background-color, color;
+  transition-duration: 0.5s, 0.5s, 0.5s;
+  transition-timing-function: ease-in, ease-in, ease-in;
+  transition-delay: 0.1s, 0.1s, 0.1s;
+}
+
+.flex_item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #345;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+
+.all_text{
+  text-align: left;
+  margin-left: 20px;
+  flex: 1;
+}
+
+.text1{
+  background-color: #345;
+  border: 0;
+  font-size: 20px;
+}

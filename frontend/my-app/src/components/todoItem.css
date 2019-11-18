@@ -1,0 +1,19 @@
+.flex_item1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #345;
+  padding:1em
+}
+
+.all_text1 {
+  text-align: left;
+  margin-left: 20px;
+  flex: 1;
+}
+
+.text2 {
+  background-color: #345;
+  border: 0;
+  font-size: 20px;
+}

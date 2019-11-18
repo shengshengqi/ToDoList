@@ -1,0 +1,7 @@
+.icon_container {
+    border-width: 2px;
+    border-style: solid;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: flex;
+}

@@ -1,28 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MyComponent from './components/ToDoItem'
-import Aaa from './components/ToDoItem2'
-
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import LeftLan from "./components/LeftLan";
+import MiddleLan from "./components/MiddleLan";
+import RightLan from "./components/RightLan";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <MyComponent name="test"/>
-        <Aaa p="123" d={new Date().toLocaleDateString()}/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div
+        style={{
+          width: "300px",
+          backgroundColor: "#345",
+        //  display:"flex"
+        }}
+      >
+        <LeftLan />
+      </div>
+      <div
+        style={{
+          backgroundColor: "#abc",
+          alignItems: "center",
+          flex: 1
+        }}
+      >
+        <MiddleLan />
+      </div>
+      <div
+        style={{
+          width: "450px",
+         // display:"flex"
+        }}
+      >
+        <RightLan />
+      </div>
     </div>
   );
 }
