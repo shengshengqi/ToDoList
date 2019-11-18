@@ -1,9 +1,10 @@
 启动
 - npm run dev
-localhost:3000
+- localhost:3000
 ### API文档
 1. 用户登录(已经测试过了）
 `POST /account/login`
+
 params:
 {
 	"username":"sqy",
