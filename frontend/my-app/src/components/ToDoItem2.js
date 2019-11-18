@@ -15,7 +15,7 @@ export default props => {
         type={iconDone ? "nike" : null}
         size={30}
         style={{
-          borderColor: "#fff",
+          borderColor: "#000",
           marginLeft: "20px"
         }}
         onClick={() => {
@@ -29,7 +29,8 @@ export default props => {
           <p
             //if(props.steps)
             style={{
-              fontSize: 16
+              fontSize: 16,
+              //color:"#ffffff"
             }}
           >
             第 {props.steps.current} 步，共 {props.steps.total} 步
