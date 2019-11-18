@@ -27,7 +27,7 @@ export default props => {
       <LoginItem username="shengshengqi" />
       <LeftItem item="sun" name="我的一天" number="3" />
       <LeftItem item="star" name="重要" number="7" />
-      <LeftItem item="house" name="重要" number="11" />
+      <LeftItem item="house" name="任务" number="11" />
     </div>
   );
 };

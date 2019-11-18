@@ -18,9 +18,10 @@ function App() {
       </div>
       <div
         style={{
-          backgroundColor: "#abc",
+          backgroundColor: "rgb(98, 127, 155)",
           alignItems: "center",
-          flex: 1
+          flex: 1,
+          color:"#ffffff"
         }}
       >
         <MiddleLan />
@@ -28,6 +29,7 @@ function App() {
       <div
         style={{
           width: "450px",
+          backgroundColor: "#345",
          // display:"flex"
         }}
       >

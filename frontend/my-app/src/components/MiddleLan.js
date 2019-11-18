@@ -29,14 +29,16 @@ export default props => {
         <TodoItem p="写个组件" steps={{ current: 1, total: 3 }} />
       </div>
       <div
+      className="newtask"
       style={{
-        color: "#000",
+        //border:"1px solid black",
+        backgroundColor: "#a00 !important",
         display: "flex",
         flexDirection: "column",
         marginLeft: "30px",
         marginRight: "30px",
         alignSelf:"flex-end",
-        marginBottom: "0px"
+        //margintop: "500px"
       }}>
       <Addition p="添加任务"></Addition>
       </div>

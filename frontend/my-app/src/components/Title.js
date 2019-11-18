@@ -10,7 +10,7 @@ export default props => {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#abc",
+        backgroundColor: "rgb(98, 127, 155)",
         //padding: "1em",
         margin: "35px"
       }}
