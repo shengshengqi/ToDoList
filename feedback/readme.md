@@ -3,49 +3,51 @@
 - localhost:3000
 ### API文档
 1. 用户登录(已经测试过了）
-`POST /account/login`
-params:
-{
-	"username":"sqy",
-	"password":"123456"
-}
-返回:
-200
-{
-	status:1,
-	data:{
-		userId:4,
-		msg:"sign in successfully",
-		avatar:""
-	}
-}
-401
-{
-	data:账号不存在/密码错误（会根据数据库情况判断）
-	status:-1
-}
-2.用户注册(测试过了）
-`POST /account/user`
-params:
-{
-	"username":"myn",
-	"password":"123456",
-	"email":"myn@163.com"
-}
-返回:
-{
-    "status": 1,
-    "data": {
-        "userId": 11,
-        "msg": "register successfully",
-        "avatar": ""
-    }
-}
-用户名重复或者邮箱重复
-{
-    "status": -1,
-    "msg": "注册失败"
-}
+   `POST /account/login`
+   params:
+   {
+   "username":"sqy",
+   "password":"123456"
+   }
+   返回:
+   200
+   {
+   status:1,
+   data:{
+   	userId:4,
+   	msg:"sign in successfully",
+   	avatar:""
+   }
+   }
+   401
+   {
+   data:账号不存在/密码错误（会根据数据库情况判断）
+   status:-1
+   }
+
+2. 用户注册(测试过了）
+   `POST /account/user`
+   params:
+   {
+   	"username":"myn",
+   	"password":"123456",
+   	"email":"myn@163.com"
+   }
+   返回:
+   {
+       "status": 1,
+       "data": {
+           "userId": 11,
+           "msg": "register successfully",
+           "avatar": ""
+       }
+   }
+   用户名重复或者邮箱重复
+   {
+       "status": -1,
+       "msg": "注册失败"
+   }
+
 3. 新建任务(测试完成）
 `POST /task/task`
 params:
