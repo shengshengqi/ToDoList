@@ -28,8 +28,8 @@ function App() {
       </div>
       <div
         style={{
-          width: "450px",
-          backgroundColor: "#345",
+          width: "400px",
+          backgroundColor: "#a1a7b4",
          // display:"flex"
         }}
       >

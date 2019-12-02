@@ -26,7 +26,7 @@ export default props => {
 
       <div className="all_text1">
         <input  type="text" defaultValue={props.p} style={{
-          backgroundColor: "#345",
+          backgroundColor: "#a1a7b4",
           border: 0,
           fontSize:props.size,
         }}></input>
