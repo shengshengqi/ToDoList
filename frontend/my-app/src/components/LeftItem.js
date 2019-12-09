@@ -7,13 +7,12 @@ import IconElement from "./IconElement/index";
 // css bem 命名规范
 export default props => {
   return (
-    <div className="left_item">
+    <div className="left_item" onClick={props.onClick}>
       <IconElement
         type={props.item}
         size={30}
         style={{
           borderColor: "#fff",
-         // marginLeft: "10px",
           border: "none"
         }}
       />

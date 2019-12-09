@@ -50,7 +50,7 @@ export default props => {
       <svg
         t="1573909711682"
         className="icon"
-        class="icon"
+        // class="icon"
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +88,7 @@ export default props => {
     sun: (
       <svg
         t="1573978456620"
-        class="icon"
+        className="icon"
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@ export default props => {
     house: (
       <svg
         t="1573978849251"
-        class="icon"
+        className="icon"
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +166,7 @@ export default props => {
     circle: (
       <svg
         t="1573988244600"
-        class="icon"
+        className="icon"
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +185,7 @@ export default props => {
     add: (
       <svg
         t="1573991203042"
-        class="icon"
+        className="icon"
         viewBox="0 0 1024 1024"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

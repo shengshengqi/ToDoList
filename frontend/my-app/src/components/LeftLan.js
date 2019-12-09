@@ -1,9 +1,9 @@
 import React from "react";
 
-import { useState } from "react";
+// import { useState } from "react";
 import LeftItem from "./LeftItem";
 import LoginItem from "./Login";
-
+const emptyCallback = () => { }
 export default props => {
   return (
     <div
@@ -17,17 +17,29 @@ export default props => {
         //alignItems: "stretch"
       }}
     >
-        <p style={{
-            textAlign: "left",
-           // marginLeft: "10px",
-            fontSize: "15px",
-            color: "#ffffff",
-            flex:1
-        }}>To Do List</p>
+      <p style={{
+        textAlign: "left",
+        // marginLeft: "10px",
+        fontSize: "15px",
+        color: "#ffffff",
+        flex: 1
+      }}>
+        To Do List
+      </p>
+
       <LoginItem username="shengshengqi" />
-      <LeftItem item="sun" name="我的一天" number="3" />
-      <LeftItem item="star" name="重要" number="7" />
-      <LeftItem item="house" name="任务" number="11" />
+      {/* 渲染元素 */}
+      {props.columns.map(
+        column =>
+          <LeftItem
+            {...column}
+            key={column.number}
+            onClick={() => {
+              const callback = props.update || emptyCallback
+              callback(column)
+            }}
+          />
+      )}
     </div>
   );
 };

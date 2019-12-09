@@ -1,0 +1,20 @@
+.inputDark{
+   color: #ccc;
+}
+
+.inputDark::-webkit-input-placeholder { 
+    /* WebKit browsers */ 
+   color: #ccc; 
+} 
+.inputDark:-moz-placeholder { 
+   /* Mozilla Firefox 4 to 18 */ 
+   color: #ccc; 
+} 
+.inputDark::-moz-placeholder { 
+    /* Mozilla Firefox 19+ */ 
+   color: #ccc; 
+} 
+.inputDark:-ms-input-placeholder { 
+    /* Internet Explorer 10+ */ 
+   color: #ccc; 
+}

@@ -1,13 +1,33 @@
 import React from "react";
+import {useRef} from 'react';
 
 import Title from "./Title";
 import TodoItem from "./ToDoItem2";
 import Addition from "./Addition";
 
+import addTask from '../actions/addTask'
+
 export default props => {
+  const additionElement = useRef()
+  const handleAdd = (taskName) => {
+    // 正式使用
+    // addTask({
+    //   name: taskName,
+    //   oneday: '1', //#TODO: 添加oneday
+    //   userId: '1'
+    // }).then(()=>{
+    //   additionElement.reset()
+    // })
+    console.log(taskName, addTask)
+    // 重置Add组件
+    additionElement.current.reset()
+    // 向父级通知更新
+    props.update !== undefined && props.update()
+  }
+
   return (
     <div>
-      <Title item="sun" name="我的一天" />
+      <Title {...props.data} />
       <div
         style={{
           color: "#000",
@@ -31,16 +51,14 @@ export default props => {
       <div
       className="newtask"
       style={{
-        //border:"1px solid black",
         backgroundColor: "#a00 !important",
         display: "flex",
         flexDirection: "column",
         marginLeft: "30px",
         marginRight: "30px",
         alignSelf:"flex-end",
-        //margintop: "500px"
       }}>
-      <Addition p="添加任务"></Addition>
+      <Addition p="添加任务" ref={additionElement} onAdd={handleAdd}></Addition>
       </div>
     </div>
   );
