@@ -221,7 +221,7 @@ router.post('/:id/unimportance', function (req, res) {
 })
 //获取所有任务
 router.get('/list', function (req, res) {
-    var userId = req.body.userId;
+    var userId = req.query.userId;
     console.log('任务：' + userId);
     var sql = `select * from task where userId="${userId}"`;
     connection.query(sql, function (err, result) {

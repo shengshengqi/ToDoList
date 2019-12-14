@@ -11,7 +11,8 @@
   align-items: center;
   background-color: rgb(227, 234, 241);
   border-radius: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 8px;
+  padding: 8px;
 }
 
 .all_text {

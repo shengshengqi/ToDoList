@@ -1,56 +1,110 @@
 import React from "react";
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from "react";
 // import logo from "./logo.svg";
 import "./App.css";
 import LeftLan from "./components/LeftLan";
 import MiddleLan from "./components/MiddleLan";
-import RightLan from "./components/RightLan";
+import LoginMask from "./components/LoginMask";
+import { getTask } from "./actions";
+
+// import RightLan from "./components/RightLan";
 
 function App() {
-  const [pageData, setPageData] = useState({})
-  const [pageListData, setPageListData] = useState([])
-  const [currentPage, setCurrentPage] = useState(null)
-  // 只会运行一次
-  useEffect(()=>{
-    let data = [
-      {item: "sun", name: "我的一天", number: 3},
-      {item: "star", name: "重要", number: 7},
-      {item: "house", name: "任务", number: 11}
-    ]
-    setPageListData(data)
-    setCurrentPage(0)
-    setPageData(data[0])
-  },[])
+  const [pageData, setPageData] = useState({});
+  const [pageListData, setPageListData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(null);
+  const [user, setUser] = useState("");
+  const [taskList, setTaskList] = useState([]);
+
+  const freshList = user => {
+    getTask({ userId: user.userId }).then(({ data: taskListData }) => {
+      const data = [
+        {
+          important: false,
+          oneday: true,
+          item: "sun",
+          name: "我的一天",
+          number: (taskListData.filter(e => e.oneday === 1)).length
+        },
+        {
+          important: true,
+          oneday: false,
+          item: "star",
+          name: "重要",
+          number: (taskListData.filter(e => e.important === 1)).length
+        },
+        {
+          important: false,
+          oneday: false,
+          item: "house",
+          name: "任务",
+          number: taskListData.length
+        }
+      ];
+
+      setPageListData(data);
+      setCurrentPage(0);
+      setPageData(data[0]);
+
+      setTaskList(taskListData);
+    });
+  };
+
+  useEffect(() => {
+    freshList(user);
+  }, [user]);
 
   return (
     <div className="App">
+      {!Boolean(user) && (
+        <LoginMask
+          handleLogin={user => {
+            setUser(user);
+          }}
+        />
+      )}
+
       <div
         style={{
           width: "300px",
-          backgroundColor: "#345",
-        //  display:"flex"
+          backgroundColor: "#345"
+          //  display:"flex"
         }}
       >
-        <LeftLan columns={pageListData}
-          update={(data) => {
-            let nextIndex = pageListData.findIndex(elem => elem.name === data.name)
-            console.log(nextIndex, currentPage)
-            if(nextIndex !== currentPage){
-              setCurrentPage(nextIndex)
-              setPageData(pageListData[nextIndex])
+        <LeftLan
+          user={user}
+          columns={pageListData}
+          update={data => {
+            let nextIndex = pageListData.findIndex(
+              elem => elem.name === data.name
+            );
+
+            if (nextIndex !== currentPage) {
+              setCurrentPage(nextIndex);
+              setPageData(pageListData[nextIndex]);
             }
           }}
         />
       </div>
+
       <div
         style={{
           backgroundColor: "rgb(98, 127, 155)",
           alignItems: "center",
           flex: 1,
-          color:"#ffffff"
+          color: "#ffffff",
+          overflowY: "auto",
+          overflowX: "hidden"
         }}
       >
-        <MiddleLan data={pageData}/>
+        <MiddleLan
+          data={pageData}
+          user={user}
+          taskList={taskList}
+          update={() => {
+            freshList(user);
+          }}
+        />
       </div>
       {/* <div
         style={{

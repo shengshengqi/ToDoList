@@ -1,0 +1,89 @@
+.input {
+  display: inline-block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  border: none;
+  height: 1.8rem;
+}
+
+.label {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+hr {
+    width: 100%
+}
+
+.button {
+    display: inline-block;
+    height: 2.4rem;
+    width: 100%;
+    margin-top: 8px;
+    background-color: #678;
+    border: none;
+    color: white
+}
+
+.button-signin {
+  background-color: white;
+  display: inline-block;
+  height: 2.4rem;
+  width: 100%;
+  margin-top: 8px;
+  border:solid 1px #678 ;
+  color: #678
+}
+
+.loginWrapper {
+  transition: all 0.5s;
+  z-index: 90;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.loginBlur {
+  position: fixed;
+  top: -10px;
+  bottom: -10px;
+  left: -10px;
+  right: -10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  filter: blur(10px);
+}
+
+.loginForm {
+  transition: all 0.5s;
+  position: relative;
+  z-index: 100;
+  min-width: 240px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 10%;
+  text-align: left;
+  border-radius: 18px;
+  padding: 30px;
+}
+
+.loginSwitcher {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.disable {
+  color: grey;
+  font-size: 1.5rem;
+  transition: all 0.5s;
+}

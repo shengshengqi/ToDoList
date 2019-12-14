@@ -7,8 +7,8 @@ import IconElement from "./IconElement/index";
 
 // css bem 命名规范
 export default props => {
-  const [iconDone, setIconDone] = useState(false);
-  const [iconStared, setIconStared] = useState(false);
+  const [iconDone, setIconDone] = useState(props.status === 1);
+  const [iconStared, setIconStared] = useState(props.important === 1);
   return (
     <div className="flex_item">
       <IconElement
@@ -19,39 +19,54 @@ export default props => {
           marginLeft: "20px"
         }}
         onClick={() => {
-          console.log("click");
-          setIconDone(!iconDone);
+          if (props.status !== 1) {
+            props.confirm(props.id, () => {
+              setIconDone(!iconDone);
+            });
+          } else {
+            props.cancel(props.id, () => {
+              setIconDone(!iconDone);
+            });
+          }
         }}
       />
-
       <div className="all_text">
         <input className="text1" type="text" defaultValue={props.p}></input>
+        {props.steps && (
           <p
             //if(props.steps)
             style={{
-              fontSize: 16,
+              fontSize: 16
               //color:"#ffffff"
             }}
           >
             第 {props.steps.current} 步，共 {props.steps.total} 步
           </p>
+        )}
       </div>
 
       <IconElement
-        type={props.i ? "null":"star2"}
+        type={props.i ? "null" : "star2"}
         size={25}
         style={{
           border: "none",
           marginRight: "20px",
           ...(iconStared
             ? {
-                svgBackgroundColor: "#abcdab"
+                svgBackgroundColor: "#FFCC33"
               }
             : {})
         }}
         onClick={() => {
-          console.log("click");
-          setIconStared(!iconStared);
+          if (props.important !== 1) {
+            props.star(props.id, () => {
+              setIconStared(!iconStared);
+            });
+          } else {
+            props.unstar(props.id, () => {
+              setIconStared(!iconStared);
+            });
+          }
         }}
       />
     </div>

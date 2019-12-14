@@ -1,9 +1,8 @@
 import config from "../config";
 
 export default (path, body = {}) => {
-  console.log(body);
   return fetch(`${config.domain}${path}`, {
-    method: "POST",
+    method: "PUT",
     mode: "cors",
     headers: {
       "Content-Type": "application/json"

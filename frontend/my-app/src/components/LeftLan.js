@@ -1,10 +1,15 @@
 import React from "react";
 
-// import { useState } from "react";
+import { useState,useEffect } from "react";
 import LeftItem from "./LeftItem";
 import LoginItem from "./Login";
 const emptyCallback = () => { }
 export default props => {
+  const [columns, setColumns] = useState([])
+  useEffect(()=>{
+    setColumns(props.columns)
+  }, [props.columns])
+
   return (
     <div
       style={{
@@ -26,14 +31,13 @@ export default props => {
       }}>
         To Do List
       </p>
-
-      <LoginItem username="shengshengqi" />
+      <LoginItem username={props.user.userName || ''} />
       {/* 渲染元素 */}
-      {props.columns.map(
+      {columns.map(
         column =>
           <LeftItem
             {...column}
-            key={column.number}
+            key={column.name}
             onClick={() => {
               const callback = props.update || emptyCallback
               callback(column)

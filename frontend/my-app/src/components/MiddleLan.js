@@ -1,32 +1,46 @@
 import React from "react";
-import {useRef} from 'react';
+import { useRef, useState, useEffect } from "react";
 
 import Title from "./Title";
 import TodoItem from "./ToDoItem2";
 import Addition from "./Addition";
 
-import addTask from '../actions/addTask'
-
+import { addTask, confirmTask, cancelTask, starTask, unStarTask } from "../actions";
 export default props => {
-  const additionElement = useRef()
-  const handleAdd = (taskName) => {
-    // 正式使用
-    // addTask({
-    //   name: taskName,
-    //   oneday: '1', //#TODO: 添加oneday
-    //   userId: '1'
-    // }).then(()=>{
-    //   additionElement.reset()
-    // })
-    console.log(taskName, addTask)
-    // 重置Add组件
-    additionElement.current.reset()
-    // 向父级通知更新
-    props.update !== undefined && props.update()
-  }
+  const [taskList, setTaskList] = useState([]);
+  const additionElement = useRef();
+  const handleAdd = taskName => {
+    addTask({
+      oneday: props.data.oneday ? 1 : 0,
+      userId: props.user.userId,
+      name: taskName
+    }).then(({ status }) => {
+      if (status === 1) {
+        // 重置Add组件
+        additionElement.current.reset();
+        // 向父级通知更新
+        props.update !== undefined && props.update();
+      }
+    });
+  };
+
+  useEffect(() => {
+    if(props.data.important) {
+      setTaskList(props.taskList.filter(task => task.important === 1));
+      return  
+    } else if(props.data.oneday) {
+      setTaskList(props.taskList.filter(task => task.oneday === 1))
+      return
+    } else {
+      setTaskList(props.taskList)
+    }
+    
+  }, [props.taskList, props.data]);
 
   return (
-    <div>
+    <div style={{
+      height:"100vh"
+    }}>
       <Title {...props.data} />
       <div
         style={{
@@ -39,26 +53,61 @@ export default props => {
           justifyContent: "space-around",
           marginLeft: "30px",
           marginRight: "30px",
-         // alignSelf:"flex-start",
-          flex:1
+          // alignSelf:"flex-start",
+          flex: 1
           //alignItems: "stretch"
         }}
       >
-        <TodoItem p="写个组件" steps={{ current: 1, total: 3 }} />
-        <TodoItem p="写个组件" steps={{ current: 1, total: 3 }} />
-        <TodoItem p="写个组件" steps={{ current: 1, total: 3 }} />
+        {taskList.map(task => (
+          <TodoItem
+            p={task.name}
+            key={task.taskId}
+            id={task.taskId}
+            status={task.status}
+            important={task.important}
+            confirm={(payload, callback) => {
+              confirmTask(payload, {
+                userId: props.user.userId
+              }).then(({ status }) => {
+                status === 1 && callback();
+              });
+            }}
+            cancel={(payload, callback) => {
+              cancelTask(payload, {
+                userId: props.user.userId
+              }).then(({ status }) => {
+                status === 1 && callback();
+              });
+            }}
+            star={(payload, callback) => {
+              starTask(payload, {
+                userId: props.user.userId
+              }).then(({ status }) => {
+                status === 1 && callback();
+              });
+            }}
+            unstar={(payload, callback) => {
+              unStarTask(payload, {
+                userId: props.user.userId
+              }).then(({ status }) => {
+                status === 1 && callback();
+              });
+            }}
+          />
+        ))}
       </div>
       <div
-      className="newtask"
-      style={{
-        backgroundColor: "#a00 !important",
-        display: "flex",
-        flexDirection: "column",
-        marginLeft: "30px",
-        marginRight: "30px",
-        alignSelf:"flex-end",
-      }}>
-      <Addition p="添加任务" ref={additionElement} onAdd={handleAdd}></Addition>
+        className="newtask"
+        style={{
+          backgroundColor: "#a00 !important",
+          display: "flex",
+          flexDirection: "column",
+          marginLeft: "30px",
+          marginRight: "30px",
+          alignSelf: "flex-end"
+        }}
+      >
+        <Addition p="添加任务" ref={additionElement} onAdd={handleAdd} />
       </div>
     </div>
   );

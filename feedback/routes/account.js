@@ -4,9 +4,9 @@ var express = require('express');
  var uuid=require('node-uuid')
 //登录代码
 router.post('/login',function(req,res){
+    console.log(req.body)
     var username=req.body.username;
     var password=req.body.password;
-    console.log(username);
     var sql=`select * from user where username="${username}"`;
     connection.query(sql,function(err,result){
       if (err) {
@@ -15,7 +15,7 @@ router.post('/login',function(req,res){
             status:-1,
             data:"系统错误"
           })
-      }else{ 
+      }else{
         if(result.length<1){
           res.status(401).send({
             data:"账号不存在",

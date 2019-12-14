@@ -23,9 +23,8 @@ export default forwardRef((props,ref) => {
         flexDirection: "row",
         alignItems: "center",
         backgroundColor: "#345",
-        padding: "5px",
         color: "white",
-        //margin: "35px"
+        padding: "12px",
         borderRadius: "5px"
       }}
     >
