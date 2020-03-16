@@ -18,6 +18,7 @@ export default props => {
       <IconElement
         type={props.item}
         size={50}
+        color={"#fff"}
         style={{
           borderColor: "#fff",
           // marginLeft: "10px",

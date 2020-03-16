@@ -10,7 +10,9 @@ export default props => {
   const [iconDone, setIconDone] = useState(props.status === 1);
   const [iconStared, setIconStared] = useState(props.important === 1);
   return (
-    <div className="flex_item">
+    <div className="flex_item" style={{
+      backgroundColor:props.background,
+    }}>
       <IconElement
         type={iconDone ? "nike" : null}
         size={30}
@@ -31,7 +33,9 @@ export default props => {
         }}
       />
       <div className="all_text">
-        <input className="text1" type="text" defaultValue={props.p}></input>
+        <input className="text1" type="text" defaultValue={props.p} style={{
+          backgroundColor:props.background,
+        }}></input>
         {props.steps && (
           <p
             //if(props.steps)

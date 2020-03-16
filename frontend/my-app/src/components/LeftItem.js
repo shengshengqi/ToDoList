@@ -11,14 +11,29 @@ export default props => {
       <IconElement
         type={props.item}
         size={30}
+        color={props.fontColor}
         style={{
-          borderColor: "#fff",
+          borderColor: props.fontColor,
           border: "none"
         }}
       />
 
-      <p className="text">{props.name}</p>
-      <p className="text2">{props.number}</p>
+      <p
+        className="text"
+        style={{
+          color: props.fontColor
+        }}
+      >
+        {props.name}
+      </p>
+      <p
+        className="text2"
+        style={{
+          color: props.fontColor
+        }}
+      >
+        {props.number}
+      </p>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React from "react";
-import { useRef, useState } from "react";
+import {useRef, useState} from "react";
 import "./LoginMask.css";
-import { doLogin, signin } from "../actions";
+import {doLogin, signin} from "../actions";
 
-export default ({ handleLogin = () => {} }) => {
+export default ({handleLogin = () => {}}) => {
   const username = useRef();
   const password = useRef();
   const email = useRef();

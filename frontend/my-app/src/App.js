@@ -6,7 +6,6 @@ import LeftLan from "./components/LeftLan";
 import MiddleLan from "./components/MiddleLan";
 import LoginMask from "./components/LoginMask";
 import { getTask } from "./actions";
-
 // import RightLan from "./components/RightLan";
 
 function App() {
@@ -15,6 +14,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(null);
   const [user, setUser] = useState("");
   const [taskList, setTaskList] = useState([]);
+  const [background,setBackground] = useState("#fff");
+  const [fontColor,setFontColor] = useState("#000");
 
   const freshList = user => {
     getTask({ userId: user.userId }).then(({ data: taskListData }) => {
@@ -54,6 +55,16 @@ function App() {
     freshList(user);
   }, [user]);
 
+  const getColor=(res)=>{
+    if(res.target.value==="light"){
+      setBackground("#fff")
+      setFontColor("#000")
+    }else if(res.target.value==="dark"){
+      setBackground("#345");
+      setFontColor("#fff");
+    } 
+  }
+
   return (
     <div className="App">
       {!Boolean(user) && (
@@ -67,13 +78,15 @@ function App() {
       <div
         style={{
           width: "300px",
-          backgroundColor: "#345"
+          backgroundColor: background
           //  display:"flex"
         }}
       >
         <LeftLan
           user={user}
           columns={pageListData}
+          fontColor={fontColor}
+          getColor={getColor}
           update={data => {
             let nextIndex = pageListData.findIndex(
               elem => elem.name === data.name
@@ -86,13 +99,12 @@ function App() {
           }}
         />
       </div>
-
       <div
         style={{
           backgroundColor: "rgb(98, 127, 155)",
           alignItems: "center",
           flex: 1,
-          color: "#ffffff",
+          color: background,
           overflowY: "auto",
           overflowX: "hidden"
         }}
@@ -104,6 +116,8 @@ function App() {
           update={() => {
             freshList(user);
           }}
+          fontColor={fontColor}
+          background={background}
         />
       </div>
       {/* <div

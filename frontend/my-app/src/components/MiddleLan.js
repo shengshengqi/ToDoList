@@ -65,6 +65,8 @@ export default props => {
             id={task.taskId}
             status={task.status}
             important={task.important}
+            background={props.background}
+            fontColor={props.fontColor}
             confirm={(payload, callback) => {
               confirmTask(payload, {
                 userId: props.user.userId
