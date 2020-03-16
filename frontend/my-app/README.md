@@ -72,3 +72,5 @@
   />
 ```
 (5) 最终的效果
+- 点击昵称打开，再次点击关闭
+![settingBox](https://github.com/shengshengqi/ToDoList/blob/master/frontend/my-app/asset/settingBox.png)
