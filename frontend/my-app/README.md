@@ -1,68 +1,74 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 启动
 
-## Available Scripts
+- cd my-app
+- npm start
 
-In the project directory, you can run:
+### notes
 
-### `npm start`
+> 2020 年 3 月 16 日，完成第一次修改，加入主题设置面板，全局控制各个模块的颜色
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+（1）设置卡片浮于左侧栏上方  
+`.setting-box{position:absolute;}`  
+`.leftLan{position:relative;}`  
+将 setting 组件放入 leftLan，通过点击昵称栏触发
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+（2）设置卡片滑入效果
 
-### `npm test`
+```
+.setting-box{
+  animation:show .5s;
+  transform-origin: top;
+}
+@keyframes show{
+  from{
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to{
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+（3）设置卡片阴影效果  
+`.setting-box{box-shadow: 0px 0px 5px #888888;}`
 
-### `npm run build`
+（4）设置全局颜色控制
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 取消组件的背景颜色
+- 组件子传父，从 setting 组件将设置的颜色传回 app.js
+- 通过 app.js 传参控制其他组件的颜色
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+//app.js
+  const getColor=(res)=>{
+    if(res.target.value==="light"){
+      setBackground("#fff")
+      setFontColor("#000")
+    }else if(res.target.value==="dark"){
+      setBackground("#345");
+      setFontColor("#fff");
+    }
+  }
+  return(
+    <div>
+      <LeftLan
+        fontColor={fontColor}
+      />
+    </div>
+  )
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+//leftLan.js
+ {!openSetting ? null : <Setting getColor={props.getColor} />}
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+//setting.js
+  <input
+    type="radio"
+    value="light"
+    name="theme"
+    id="light"
+    onChange={this.props.getColor}
+  />
+```
+(5) 最终的效果
