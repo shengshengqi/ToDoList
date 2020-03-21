@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useState } from "react";
-import "./todoItem2.css";
+import "./MiddleItem.css";
 
 import IconElement from "./IconElement/index";
 
@@ -33,9 +33,9 @@ export default props => {
         }}
       />
       <div className="all_text">
-        <input className="text1" type="text" defaultValue={props.p} style={{
+        <p className="text1"style={{
           backgroundColor:props.background,
-        }}></input>
+        }}>{props.p}</p>
         {props.steps && (
           <p
             //if(props.steps)

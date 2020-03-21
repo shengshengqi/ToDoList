@@ -2,7 +2,7 @@ import React from "react";
 import { useRef, useState, useEffect } from "react";
 
 import Title from "./Title";
-import TodoItem from "./ToDoItem2";
+import MiddleItem from "./MiddleItem";
 import Addition from "./Addition";
 
 import { addTask, confirmTask, cancelTask, starTask, unStarTask } from "../actions";
@@ -59,7 +59,7 @@ export default props => {
         }}
       >
         {taskList.map(task => (
-          <TodoItem
+          <MiddleItem
             p={task.name}
             key={task.taskId}
             id={task.taskId}

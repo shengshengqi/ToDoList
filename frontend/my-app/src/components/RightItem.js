@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useState } from "react";
-import "./todoItem.css";
+import "./RightItem.css";
 
 import IconElement from "./IconElement/index";
 

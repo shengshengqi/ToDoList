@@ -1,7 +1,7 @@
 import React from "react";
 
 // import { useState } from "react";
-import TodoItem from "./ToDoItem";
+import TodoItem from "./RightItem";
 import Addition from "./Addition";
 
 export default props => {

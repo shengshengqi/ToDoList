@@ -2,7 +2,7 @@ import React from "react";
 
 import { useState,useEffect } from "react";
 import LeftItem from "./LeftItem";
-import LoginItem from "./Login";
+import UserItem from "./UserItem";
 import Setting from "./Setting";
 const emptyCallback = () => { }
 export default props => {
@@ -36,7 +36,7 @@ export default props => {
       >
         To Do List
       </p>
-      <LoginItem
+      <UserItem
         username={props.user.userName || ""}
         onClick={() => {
           setOpenSetting(!openSetting);
