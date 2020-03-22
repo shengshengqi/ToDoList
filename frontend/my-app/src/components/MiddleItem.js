@@ -33,7 +33,7 @@ export default props => {
         }}
       />
       <div className="all_text">
-        <p className="text1"style={{
+        <p className="step_text"style={{
           backgroundColor:props.background,
         }}>{props.p}</p>
         {props.steps && (

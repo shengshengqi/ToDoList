@@ -4,10 +4,12 @@ import { useRef, useState, useEffect } from "react";
 import Title from "./Title";
 import MiddleItem from "./MiddleItem";
 import Addition from "./Addition";
+import RightLan from "./RightLan";
 
 import { addTask, confirmTask, cancelTask, starTask, unStarTask } from "../actions";
 export default props => {
   const [taskList, setTaskList] = useState([]);
+  const [rightLan, setRightLan] = useState(false);
   const additionElement = useRef();
   const handleAdd = taskName => {
     addTask({
@@ -94,6 +96,9 @@ export default props => {
               }).then(({ status }) => {
                 status === 1 && callback();
               });
+            }}
+            OnClick={()=>{
+              setRightLan(!rightLan);
             }}
           />
         ))}

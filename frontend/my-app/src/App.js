@@ -6,7 +6,7 @@ import LeftLan from "./components/LeftLan";
 import MiddleLan from "./components/MiddleLan";
 import LoginMask from "./components/LoginMask";
 import { getTask } from "./actions";
-// import RightLan from "./components/RightLan";
+import RightLan from "./components/RightLan";
 
 function App() {
   const [pageData, setPageData] = useState({});
@@ -14,8 +14,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(null);
   const [user, setUser] = useState("");
   const [taskList, setTaskList] = useState([]);
-  const [background,setBackground] = useState("#fff");
-  const [fontColor,setFontColor] = useState("#000");
+  const [backColor, setBackColor] = useState("#fff");
+  const [fontColor, setFontColor] = useState("#000");
 
   const freshList = user => {
     getTask({ userId: user.userId }).then(({ data: taskListData }) => {
@@ -55,14 +55,14 @@ function App() {
     freshList(user);
   }, [user]);
 
-  const getColor=(res)=>{
-    if(res.target.value==="light"){
-      setBackground("#fff")
+  const getColor = (res) => {
+    if (res.target.value === "light") {
+      setBackColor("#fff")
       setFontColor("#000")
-    }else if(res.target.value==="dark"){
-      setBackground("#345");
+    } else if (res.target.value === "dark") {
+      setBackColor("#345");
       setFontColor("#fff");
-    } 
+    }
   }
 
   return (
@@ -77,8 +77,31 @@ function App() {
 
       <div
         style={{
-          width: "300px",
-          backgroundColor: background
+          backgroundColor: "rgb(98, 127, 155)",
+          alignItems: "center",
+          flex: 1,
+          color: backColor,
+          // overflowY: "auto",
+          // overflowX: "hidden"
+        }}
+      >
+        <MiddleLan
+          data={pageData}
+          user={user}
+          taskList={taskList}
+          update={() => {
+            freshList(user);
+          }}
+          fontColor={fontColor}
+          background={backColor}
+        />
+      </div>
+      <div
+        style={{
+          flex: "0 0 200px",
+          // width: "300px",
+          backgroundColor: backColor,
+          order: -1,
           //  display:"flex"
         }}
       >
@@ -101,34 +124,16 @@ function App() {
       </div>
       <div
         style={{
-          backgroundColor: "rgb(98, 127, 155)",
-          alignItems: "center",
-          flex: 1,
-          color: background,
-          overflowY: "auto",
-          overflowX: "hidden"
+          flex: "0 0 300px",
+          backgroundColor: backColor
+          //  display:"flex"
         }}
       >
-        <MiddleLan
-          data={pageData}
-          user={user}
-          taskList={taskList}
-          update={() => {
-            freshList(user);
-          }}
+        <RightLan
           fontColor={fontColor}
-          background={background}
+          background={backColor}
         />
       </div>
-      {/* <div
-        style={{
-          width: "400px",
-          backgroundColor: "#a1a7b4",
-         // display:"flex"
-        }}
-      >
-        <RightLan />
-      </div> */}
     </div>
   );
 }

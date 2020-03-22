@@ -1,13 +1,13 @@
 import React from "react";
 
 // import { useState } from "react";
-import TodoItem from "./RightItem";
+import RightItem from "./RightItem";
 import Addition from "./Addition";
 
 export default props => {
   return (
     <div>
-    <TodoItem  p="写个组件" size="25px"/>
+    <RightItem  p="写个组件" size="25px"/>
     <div
       style={{
         color: "#000",
@@ -21,9 +21,7 @@ export default props => {
         alignItems: "stretch"
       }}
     >
-      <TodoItem p="小步骤" i="1" size="20px"/>
-      <TodoItem p="小步骤" i="1" size="20px"/>
-      <TodoItem p="小步骤" i="1" size="20px"/>
+      <RightItem p="小步骤" i="1" size="20px" fontColor={props.fontColor}/>
     </div>
     <div
     style={{
@@ -33,7 +31,7 @@ export default props => {
       //alignSelf:"flex-end"
     //  marginTop: "-50px"
     }}>
-    <Addition p="添加任务"></Addition>
+    {/* <Addition p="添加任务" backColor={props.backColor}></Addition> */}
     </div>
   </div>
   );

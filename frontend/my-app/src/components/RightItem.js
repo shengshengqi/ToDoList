@@ -8,47 +8,30 @@ import IconElement from "./IconElement/index";
 // css bem 命名规范
 export default props => {
   const [iconDone, setIconDone] = useState(false);
-  const [iconStared, setIconStared] = useState(false);
   return (
-    <div className="flex_item1">
+    <div className="flex_item_r" >
       <IconElement
         type={iconDone ? "nike" : null}
         size={props.size}
         style={{
-          borderColor: "#fff",
-          marginLeft: "10px"
+          marginLeft: "10px",
+          verticalAlign: "top",
         }}
         onClick={() => {
           console.log("click");
           setIconDone(!iconDone);
         }}
       />
-
-      <div className="all_text1">
+        <div className="all_text">
         <input  type="text" defaultValue={props.p} style={{
-          backgroundColor: "#a1a7b4",
           border: 0,
           fontSize:props.size,
+          backgroundColor:"transparent",
+          // width:"200px",
+          // display:"block",
+          // flex:1,
         }}></input>
       </div>
-
-      <IconElement
-        type={props.i ? "null":"star2"}
-        size={props.size}
-        style={{
-          border: "none",
-          marginRight: "10px",
-          ...(iconStared
-            ? {
-                svgBackgroundColor: "#abcdab"
-              }
-            : {})
-        }}
-        onClick={() => {
-          console.log("click");
-          setIconStared(!iconStared);
-        }}
-      />
-    </div>
+      </div>
   );
 };
