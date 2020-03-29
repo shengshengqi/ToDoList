@@ -39,26 +39,18 @@ export default props => {
 
   return (
     <div style={{
-      // postion: "relative",
-      // display: "flex",
-      // flexDirection: "column",
-      // flex:1,
+      display: "flex",
+      flexDirection: "column",
       paddingLeft: "30px",
       paddingRight: "30px",
+      height:"100%"
     }}>
       <Title {...props.data} />
       <div
         style={{
           color: "#000",
-          //width: "90%",
-          // display: "flex",
-          // height: "300PX",
-          // alignItems: "center",
-          // flexDirection: "column",
-          // justifyContent: "space-around",
-          // alignSelf:"flex-start",
-          //  flex: 1
-          //alignItems: "stretch"
+          height:"90%",
+          overflow:"auto"
         }}
       >
         {taskList.map(task => (
@@ -104,18 +96,14 @@ export default props => {
           />
         ))}
       </div>
-      <div
-        style={{
-          backgroundColor: "#a00 !important",
-          // alignSelf:"flex-end",
-          // flex:1,
-          // position:"relative",
-          // bottom:"30px"
-          // top:"400px"
-        }}
-      >
+        <div
+          style={{
+            backgroundColor: "#a00 !important",
+            height:"10%"
+          }}
+        >
           <Addition p="添加任务" ref={additionElement} onAdd={handleAdd} />
         </div>
-    </div>
+      </div>
   );
 };

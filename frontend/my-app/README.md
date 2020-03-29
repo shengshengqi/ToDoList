@@ -77,4 +77,23 @@
 
 >2020 年 3 月 29 日 完成第二次修改 加入选择阴影效果、右侧栏
 
-（1）flex不能使用绝对定位，暂时未找到将添加任务栏置底的方法
+（1）flex不能使用绝对定位
+  ```
+  <div style={{
+    display: "flex",
+    flexDirection: "column",
+    height:"100%"
+  }}>
+    <div style={{
+      height:"90%"
+      overflow:"auto"
+    }}>
+    </div>
+    <div style={{
+      height:"10%"
+    }}>
+    </div>
+  </div>
+  ```
+
+  (此处感谢阿毛)
