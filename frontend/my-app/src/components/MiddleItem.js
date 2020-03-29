@@ -12,7 +12,7 @@ export default props => {
   return (
     <div className="flex_item" style={{
       backgroundColor:props.background,
-    }}>
+    }} onClick={props.onClick}>
       <IconElement
         type={iconDone ? "nike" : null}
         size={30}
@@ -33,9 +33,7 @@ export default props => {
         }}
       />
       <div className="all_text">
-        <p className="step_text"style={{
-          backgroundColor:props.background,
-        }}>{props.p}</p>
+        <p className="step_text">{props.p}</p>
         {props.steps && (
           <p
             //if(props.steps)

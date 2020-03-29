@@ -6,7 +6,11 @@
 }
 
 .left_item:hover{
-  box-shadow: inset 20em 1em rgb(197, 197, 194);
+  /* box-shadow: inset 20em 1em rgb(197, 197, 194); */
+  box-shadow: 
+   inset 0 -3em 3em rgba(0,0,0,0.1), 
+         0 0  0 2px rgb(255,255,255),
+         0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 
 /* .left_item:active{

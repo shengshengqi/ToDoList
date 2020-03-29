@@ -2,17 +2,6 @@ import React from "react";
 
 import "./Setting.css";
 class Setting extends React.Component {
-  // constructor(props){
-  //   super(props)
-  //   this.state={
-  //     theme:"light"
-  //   }
-  // }
-  // changeTheme=(e)=>{
-  //   this.setState({
-  //     theme:e.target.value
-  //   })
-  // }
   render() {
     return (
       <div className="setting-box">

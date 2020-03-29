@@ -16,6 +16,8 @@ function App() {
   const [taskList, setTaskList] = useState([]);
   const [backColor, setBackColor] = useState("#fff");
   const [fontColor, setFontColor] = useState("#000");
+  const [rightLan, setRightLan] = useState(false);
+  const [rightLanId, setRightLanId] = useState(null);
 
   const freshList = user => {
     getTask({ userId: user.userId }).then(({ data: taskListData }) => {
@@ -65,6 +67,16 @@ function App() {
     }
   }
 
+  const OpenRightLan = (res) => {
+    if (res===rightLanId) {
+      setRightLan(!rightLan)
+    }else{
+      console.log(res+"号任务被点击，此处是他的小步骤栏")
+      setRightLan(true)
+      setRightLanId(res)
+    }
+  }
+
   return (
     <div className="App">
       {!Boolean(user) && (
@@ -94,6 +106,7 @@ function App() {
           }}
           fontColor={fontColor}
           background={backColor}
+          OpenRightLan={OpenRightLan}
         />
       </div>
       <div
@@ -122,18 +135,19 @@ function App() {
           }}
         />
       </div>
-      <div
-        style={{
-          flex: "0 0 300px",
-          backgroundColor: backColor
-          //  display:"flex"
-        }}
-      >
-        <RightLan
-          fontColor={fontColor}
-          background={backColor}
-        />
-      </div>
+      {!rightLan ? null :
+        <div
+          style={{
+            flex: "0 0 300px",
+            backgroundColor: backColor
+            //  display:"flex"
+          }}
+        >
+          <RightLan
+            fontColor={fontColor}
+            background={backColor}
+          />
+        </div>}
     </div>
   );
 }

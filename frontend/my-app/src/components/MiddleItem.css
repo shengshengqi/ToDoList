@@ -13,6 +13,16 @@
   border-radius: 5px;
   margin-bottom: 8px;
   padding: 8px;
+  /* z-index: 2; */
+}
+
+.flex_item:hover{
+  /* box-shadow: inset 200px 200px 200px rgb(197, 197, 194);
+   */
+   box-shadow: 
+   inset 0 -3em 3em rgba(0,0,0,0.1), 
+         0 0  0 2px rgb(255,255,255),
+         0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 
 .all_text {

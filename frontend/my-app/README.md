@@ -74,3 +74,7 @@
 (5) 最终的效果
 - 点击昵称打开，再次点击关闭  
 ![settingBox](https://github.com/shengshengqi/ToDoList/blob/master/frontend/my-app/asset/settingBox.png)
+
+>2020 年 3 月 29 日 完成第二次修改 加入选择阴影效果、右侧栏
+
+（1）flex不能使用绝对定位，暂时未找到将添加任务栏置底的方法

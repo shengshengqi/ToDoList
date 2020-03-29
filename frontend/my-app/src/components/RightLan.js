@@ -28,10 +28,12 @@ export default props => {
       color: "#000",
       display: "flex",
       flexDirection: "column",
+      // position: "absolute",
+      // bottom:"0"
       //alignSelf:"flex-end"
     //  marginTop: "-50px"
     }}>
-    {/* <Addition p="添加任务" backColor={props.backColor}></Addition> */}
+    <Addition p="添加任务" backColor={props.backColor}></Addition>
     </div>
   </div>
   );
