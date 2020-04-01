@@ -1,10 +1,41 @@
 import React from "react";
+import { useRef, useState, useEffect} from "react";
 
 // import { useState } from "react";
 import RightItem from "./RightItem";
-import Addition from "./Addition";
+import Addition from "./AdditionStep";
+import { addStep, finishStep, cancelStep, getStep } from "../actions";
 
 export default props => {
+  const additionElement = useRef();
+  const [stepList, setStepList] = useState([]);
+  // const [taskId, setTaskId] = useState(null);
+  const handleAdd = stepName => {
+    addStep(props.taskId,{
+      name: stepName
+    }).then(({ status }) => {
+      if (status === 1) {
+        // 重置Add组件
+        additionElement.current.reset();
+        freshStep(props.taskId);
+      }
+    });
+  };
+
+  const freshStep = taskId => {
+    getStep({taskId: props.taskId}).then(({data: stepListData})=>
+    {
+        setStepList(stepListData||[])
+    })
+  }
+
+  // useCallback(freshStep(props.taskId),[props.taskId])
+  // freshStep(props.taskId);
+  useEffect(() => {
+    freshStep(props.taskId)
+    // eslint-disable-next-line
+  },[props.taskId]);
+
   return (
     <div>
     <RightItem  p="写个组件" size="25px"/>
@@ -21,7 +52,28 @@ export default props => {
         alignItems: "stretch"
       }}
     >
-      <RightItem p="小步骤" i="1" size="20px" fontColor={props.fontColor}/>
+      {stepList&&stepList.map(step =>(
+      <RightItem 
+      p={step.name} 
+      key={step.stepId}
+      id={step.stepId}
+      fontColor={props.fontColor}
+      finish={(payload, callback) => {
+        finishStep(payload, {
+          taskId: props.taskId
+        }).then(({ status }) => {
+          status === 1 && callback();
+        });
+      }}
+      cancel={(payload, callback) => {
+        cancelStep(payload, {
+          taskId: props.taskId
+        }).then(({ status }) => {
+          status === 1 && callback();
+        });
+      }}/>
+      ))
+      }
     </div>
     <div
     style={{
@@ -33,7 +85,7 @@ export default props => {
       //alignSelf:"flex-end"
     //  marginTop: "-50px"
     }}>
-    <Addition p="添加任务" backColor={props.backColor}></Addition>
+    <Addition p="下一步" ref={additionElement} onAdd={handleAdd}/>
     </div>
   </div>
   );

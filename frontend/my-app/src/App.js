@@ -11,51 +11,52 @@ import RightLan from "./components/RightLan";
 function App() {
   const [pageData, setPageData] = useState({});
   const [pageListData, setPageListData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
   const [user, setUser] = useState("");
   const [taskList, setTaskList] = useState([]);
   const [backColor, setBackColor] = useState("#fff");
   const [fontColor, setFontColor] = useState("#000");
   const [rightLan, setRightLan] = useState(false);
-  const [rightLanId, setRightLanId] = useState(null);
+  const [taskId, setTaskId] = useState(null);
 
   const freshList = user => {
-    getTask({ userId: user.userId }).then(({ data: taskListData }) => {
+    return getTask({ userId: user.userId }).then(({ data: taskListData }) => {
       const data = [
         {
           important: false,
           oneday: true,
           item: "sun",
           name: "我的一天",
-          number: (taskListData.filter(e => e.oneday === 1)).length
+          number: ((taskListData || []).filter(e => e.oneday === 1)).length
         },
         {
           important: true,
           oneday: false,
           item: "star",
           name: "重要",
-          number: (taskListData.filter(e => e.important === 1)).length
+          number: ((taskListData || []).filter(e => e.important === 1)).length
         },
         {
           important: false,
           oneday: false,
           item: "house",
           name: "任务",
-          number: taskListData.length
+          number: (taskListData || []).length
         }
       ];
-
       setPageListData(data);
-      setCurrentPage(0);
-      setPageData(data[0]);
-
-      setTaskList(taskListData);
+      setTaskList(taskListData || []);
+      return data
     });
   };
 
   useEffect(() => {
-    freshList(user);
-  }, [user]);
+    freshList(user).then((data)=>{
+        setPageData(data[currentPage]);
+      }
+    );
+
+  }, [user,currentPage]);
 
   const getColor = (res) => {
     if (res.target.value === "light") {
@@ -68,12 +69,11 @@ function App() {
   }
 
   const OpenRightLan = (res) => {
-    if (res===rightLanId) {
+    if (res === taskId) {
       setRightLan(!rightLan)
-    }else{
-      console.log(res+"号任务被点击，此处是他的小步骤栏")
+    } else {
       setRightLan(true)
-      setRightLanId(res)
+      setTaskId(res)
     }
   }
 
@@ -87,6 +87,33 @@ function App() {
         />
       )}
 
+      <div
+        style={{
+          flex: "0 0 200px",
+          // width: "300px",
+          backgroundColor: backColor,
+          order: -1,
+          //  display:"flex"
+        }}
+      >
+        <LeftLan
+          user={user}
+          columns={pageListData}
+          fontColor={fontColor}
+          getColor={getColor}
+          update={data => {
+            let nextIndex = pageListData.findIndex(
+              elem => elem.name === data.name
+            );
+
+            if (nextIndex !== currentPage) {
+              setRightLan(false);
+              setCurrentPage(nextIndex);
+              setPageData(pageListData[nextIndex]);
+            }
+          }}
+        />
+      </div>
       <div
         style={{
           backgroundColor: "rgb(98, 127, 155)",
@@ -109,32 +136,6 @@ function App() {
           OpenRightLan={OpenRightLan}
         />
       </div>
-      <div
-        style={{
-          flex: "0 0 200px",
-          // width: "300px",
-          backgroundColor: backColor,
-          order: -1,
-          //  display:"flex"
-        }}
-      >
-        <LeftLan
-          user={user}
-          columns={pageListData}
-          fontColor={fontColor}
-          getColor={getColor}
-          update={data => {
-            let nextIndex = pageListData.findIndex(
-              elem => elem.name === data.name
-            );
-
-            if (nextIndex !== currentPage) {
-              setCurrentPage(nextIndex);
-              setPageData(pageListData[nextIndex]);
-            }
-          }}
-        />
-      </div>
       {!rightLan ? null :
         <div
           style={{
@@ -144,8 +145,9 @@ function App() {
           }}
         >
           <RightLan
+            taskId={taskId}
+            data={pageData}
             fontColor={fontColor}
-            background={backColor}
           />
         </div>}
     </div>

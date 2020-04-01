@@ -2,57 +2,34 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../conf/mysql.js');
 //新建子任务
-router.post('/:id/task', function (req, res) {
+router.post('/:id/step', function (req, res) {
     var taskId = req.params.id;
     var name = req.body.name;
-    var userId = req.body.userId;
-    console.log('任务：' + name);
-    var sql = `select * from task where taskId="${taskId}"`;//筛选用户
+    console.log('子任务：' + name);
+    var sql = `insert into step(name,taskId) values("${name}","${taskId}") `
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
+            res.send({
+                status: -1,
+                msg: "添加子任务失败",
+            })
         } else {
-            if (result.length>0 && result[0].userId == userId) {
-                var sql = `insert into task(name,subId) values("${name}","${taskId}") `;//筛选TaskId
-                connection.query(sql, function (err, result) {
-                    if (err) {
-                        console.log(err);
-                        res.send({
-                            msg: '添加子任务失败'
-                        })
-                    } else {
-                        console.log(result);
-                        if (result.affectedRows > 0) {
-                            res.send({
-                                status: 1,
-                                msg: "添加子任务成功",
-                                subtaskId: result.insertId
-                            })
-                        } else {
-                            res.send({
-                                status: -1,
-                                msg: "添加子任务失败",
-                            })
-                        }
-                    }
-                })
-            }else{
-                res.status(401).send({
-                    status:-1,
-                    msg:"任务不存在"
-                })
-            }
+            res.send({
+                status: 1,
+                msg: "添加子任务成功",
+                stepId: result.insertId
+            })
         }
     })
-
 })
+
 //删除子任务
 router.delete('/:id/off', function (req, res) {
     var taskId = req.body.taskId;
-    var userId = req.body.userId;
-    var subtaskId=req.params.id;
-    console.log('任务：' + subtaskId);
-    var sql = `delete from task where taskId="${subtaskId}" and subId="${taskId}"`;
+    var stepId = req.params.id;
+    console.log('任务：' + stepId);
+    var sql = `delete from Step where taskId="${taskId}" and StepId="${stepId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -76,13 +53,10 @@ router.delete('/:id/off', function (req, res) {
     })
 })
 //完成子任务
-router.put('/:id/confirm', function (req, res) {
-    var subtaskId=req.params.id
-    var taskId = req.body.taskId;
-    var userId = req.body.userId;
+router.put('/:id/finish', function (req, res) {
+    var stepId = req.params.id
     console.log('任务：' + taskId);
-    //userId的验证问题
-    var sql = `update task set status=1 where taskId="${subtaskId}" and subId="${taskId}"`;
+    var sql = `update step set status=1 where StepId="${stepId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -107,11 +81,9 @@ router.put('/:id/confirm', function (req, res) {
 })
 //取消完成子任务
 router.put('/:id/cancel', function (req, res) {
-    var subtaskId=req.params.id;
-    var taskId = req.body.taskId;
-    var userId = req.body.userId;
+    var stepId = req.params.id;
     console.log('任务：' + taskId);
-    var sql = `update task set status=0 where subId="${taskId}" and taskId="${subtaskId}"`;
+    var sql = `update task set status=0 where StepId="${stepId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -136,10 +108,9 @@ router.put('/:id/cancel', function (req, res) {
 })
 //获取子任务
 router.get('/list', function (req, res) {
-    var userId = req.body.userId;
-    var taskId=req.body.taskId;
-    console.log('任务：' + userId);
-    var sql = `select * from task where subId="${taskId}"`;
+    var taskId = req.query.taskId;
+    console.log('任务：' + taskId);
+    var sql = `select * from step where taskId="${taskId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -155,10 +126,10 @@ router.get('/list', function (req, res) {
                     status: 1,
                     data: result
                 })
-            }else{
+            } else {
                 res.send({
                     status: 1,
-                    data:[]
+                    data: []
                 })
             }
 

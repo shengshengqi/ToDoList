@@ -20,9 +20,12 @@ export default props => {
           borderColor: "#000",
           marginLeft: "20px"
         }}
-        onClick={() => {
+        onClick={(e) => {
+          if(e && e.stopPropagation){
+            e.stopPropagation()
+          }
           if (props.status !== 1) {
-            props.confirm(props.id, () => {
+            props.finish(props.id, () => {
               setIconDone(!iconDone);
             });
           } else {
@@ -59,7 +62,10 @@ export default props => {
               }
             : {})
         }}
-        onClick={() => {
+        onClick={(e) => {
+          if(e && e.stopPropagation){
+            e.stopPropagation()
+          }
           if (props.important !== 1) {
             props.star(props.id, () => {
               setIconStared(!iconStared);

@@ -6,9 +6,9 @@ var logger = require("morgan");
 
 var bodyParser = require('body-parser')
 
-var accountRouter = require("./routes/account");
+var userRouter = require("./routes/user");
 var taskRouter = require("./routes/task");
-var subtaskRouter = require("./routes/subtask");
+var stepRouter = require("./routes/step");
 var app = express();
 
 app.all("*", function(req, res, next) {
@@ -35,9 +35,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/account", accountRouter);
+app.use("/user", userRouter);
 app.use("/task", taskRouter);
-app.use("/subtask", subtaskRouter);
+app.use("/step", stepRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

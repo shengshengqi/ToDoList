@@ -11,7 +11,7 @@ router.post('/login',function(req,res){
     connection.query(sql,function(err,result){
       if (err) {
         console.log(err);
-          res.send({
+          res.status(500).send({
             status:-1,
             data:"系统错误"
           })
@@ -51,6 +51,7 @@ router.post('/user',function(req,res){
     console.log('账号：'+username);
     connection.query(`insert into user(username,password,email) values("${username}","${password}","${email}")`,function(err,result){
       if(err){
+        console.log(err)
         res.status(401).send({
           status:-1,
           msg:'注册失败'

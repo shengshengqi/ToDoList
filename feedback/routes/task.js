@@ -3,11 +3,12 @@ var router = express.Router();
 var connection = require('../conf/mysql.js');
 //新建任务
 router.post('/task', function (req, res) {
-    var name = req.body.name;
     var oneday = req.body.oneday;
+    var important = req.body.important;
+    var name = req.body.name;
     var userId = req.body.userId;
     console.log('任务：' + name);
-    var sql = `insert into task(name,oneday,userId) values("${name}","${oneday}","${userId}")`;
+    var sql = `insert into task(name,userId,oneday,important) values("${name}","${userId}","${oneday}","${important}")`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -53,11 +54,10 @@ router.delete('/:id', function (req, res) {
     })
 })
 //完成任务
-router.put('/:id/confirm', function (req, res) {
+router.put('/:id/finish', function (req, res) {
     var taskId = req.params.id;
-    var userId = req.body.userId;
     console.log('任务：' + taskId);
-    var sql = `update task set status=1 where taskId="${taskId}" and userId="${userId}"`;
+    var sql = `update task set status=1 where taskId="${taskId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -82,9 +82,8 @@ router.put('/:id/confirm', function (req, res) {
 //取消完成任务
 router.put('/:id/cancel', function (req, res) {
     var taskId = req.params.id;
-    var userId = req.body.userId;
     console.log('任务：' + taskId);
-    var sql = `update task set status=0 where taskId="${taskId}" and userId="${userId}"`;
+    var sql = `update task set status=0 where taskId="${taskId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -110,9 +109,8 @@ router.put('/:id/cancel', function (req, res) {
 //将任务添加到我的一天
 router.post('/:id/oneday', function (req, res) {
     var taskId = req.params.id;
-    var userId = req.body.userId;
     console.log('任务：' + taskId);
-    var sql = `update task set oneday=1 where taskId="${taskId}" and userId="${userId}"`;
+    var sql = `update task set oneday=1 where taskId="${taskId}""`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -138,9 +136,8 @@ router.post('/:id/oneday', function (req, res) {
 //将任务从我的一天中移除
 router.post('/:id/offoneday', function (req, res) {
     var taskId = req.params.id;
-    var userId = req.body.userId;
     console.log('任务：' + taskId);
-    var sql = `update task set oneday=0 where taskId="${taskId}" and userId="${userId}"`;
+    var sql = `update task set oneday=0 where taskId="${taskId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -166,9 +163,8 @@ router.post('/:id/offoneday', function (req, res) {
 //收藏任务
 router.post('/:id/importance', function (req, res) {
     var taskId = req.params.id;
-    var userId = req.body.userId;
     console.log('任务：' + taskId);
-    var sql = `update task set important=1 where taskId="${taskId}" and userId="${userId}"`;
+    var sql = `update task set important=1 where taskId="${taskId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -194,9 +190,8 @@ router.post('/:id/importance', function (req, res) {
 //取消收藏任务
 router.post('/:id/unimportance', function (req, res) {
     var taskId = req.params.id;
-    var userId = req.body.userId;
     console.log('任务：' + taskId);
-    var sql = `update task set important=0 where taskId="${taskId}" and userId="${userId}"`;
+    var sql = `update task set important=0 where taskId="${taskId}"`;
     connection.query(sql, function (err, result) {
         if (err) {
             console.log(err);
@@ -234,7 +229,7 @@ router.get('/list', function (req, res) {
             if (result.length > 0) {
                 var datas = [{}];
                 console.log(result.length);
-                console.log(result[0].taskId);
+                console.log(result[0].TaskId);
                 res.send({
                     status: 1,
                     data: result

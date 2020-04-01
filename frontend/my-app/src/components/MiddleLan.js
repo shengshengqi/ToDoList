@@ -5,13 +5,14 @@ import Title from "./Title";
 import MiddleItem from "./MiddleItem";
 import Addition from "./Addition";
 
-import { addTask, confirmTask, cancelTask, starTask, unStarTask } from "../actions";
+import { addTask, finishTask, cancelTask, starTask, unStarTask } from "../actions";
 export default props => {
   const [taskList, setTaskList] = useState([]);
   const additionElement = useRef();
   const handleAdd = taskName => {
     addTask({
       oneday: props.data.oneday ? 1 : 0,
+      important: props.data.important ? 1 : 0,
       userId: props.user.userId,
       name: taskName
     }).then(({ status }) => {
@@ -62,8 +63,8 @@ export default props => {
             important={task.important}
             background={props.background}
             fontColor={props.fontColor}
-            confirm={(payload, callback) => {
-              confirmTask(payload, {
+            finish={(payload, callback) => {
+              finishTask(payload, {
                 userId: props.user.userId
               }).then(({ status }) => {
                 status === 1 && callback();

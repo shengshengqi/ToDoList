@@ -4,7 +4,7 @@ var pool = mysql.createPool({
       host     : '129.204.218.96',
       user     : 'root',
       password : 'Ssq03230202',
-      database : 'todilist'
+      database : 'todolist'
       
     });
 

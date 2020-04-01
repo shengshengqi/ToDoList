@@ -29,7 +29,7 @@ export default forwardRef((props,ref) => {
       }}
     >
       <IconElement
-        type={iconDone ? "circle" : "add"}
+        type={iconDone ? "circle":"add"}
         size={30}
         style={{
           borderColor: "#fff",

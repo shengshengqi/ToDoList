@@ -4,15 +4,15 @@ import put from "./put";
 
 export const doLogin = (
   payload = {
-    username: "sqy",
+    username: "ssy",
     password: "123456"
   }
 ) => {
-  return post("/account/login", payload)
+  return post("/user/login", payload)
 };
 
 export const signin = (payload) => {
-    return post('/account/user', payload)
+    return post('/user/user', payload)
 }
 
 export const addTask = (payload) => {
@@ -23,8 +23,8 @@ export const getTask = (payload) => {
   return get('/task/list', payload, payload)
 }
 
-export const confirmTask = (taskId, payload) => {
-  return put(`/task/${taskId}/confirm`, payload)
+export const finishTask = (taskId, payload) => {
+  return put(`/task/${taskId}/finish`, payload)
 }
 
 export const cancelTask = (taskId, payload) => {
@@ -37,4 +37,20 @@ export const starTask = (taskId, payload) => {
 
 export const unStarTask = (taskId, payload) => {
   return post(`/task/${taskId}/unImportance`, payload)
+}
+
+export const addStep = (taskId,payload) => {
+  return post(`/step/${taskId}/step`,payload)
+}
+
+export const getStep = (payload) => {
+  return get('/step/list',payload)
+}
+
+export const finishStep = (stepId, payload) => {
+  return put(`/step/${stepId}/finish`, payload)
+}
+
+export const cancelStep = (stepId, payload) => {
+  return put(`/step/${stepId}/cancel`, payload)
 }

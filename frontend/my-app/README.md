@@ -96,4 +96,16 @@
   </div>
   ```
 
-  (此处感谢阿毛)
+  - (此处感谢阿毛)
+
+>2020 年 4 月 
+
+（1）
+  点击子级div触发父级div的onclick事件问题，我们的实际需求是只想要触发点击的那个div上绑定的事件，即如何阻止事件冒泡？  
+  ```
+  if(e && e.stopPropagation){
+      e.stopPropagation()
+  }
+  ```
+  - [JS阻止事件冒泡和默认事件](https://blog.csdn.net/xiasohuai/article/details/86496745?tdsourcetag=s_pctim_aiomsg)    
+  - (阿毛真是个小天才啊，差点我就要做出叠加透明图层进行裁剪的蠢事了)
