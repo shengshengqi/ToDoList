@@ -12,7 +12,9 @@ export default props => {
         alignItems: "center",
         backgroundColor: "rgb(98, 127, 155)",
         //padding: "1em",
-        margin: "35px"
+        // margin: "35px"
+        paddingTop: "30px",
+        paddingBottom: "30px",
       }}
     >
       <IconElement

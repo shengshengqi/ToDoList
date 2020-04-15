@@ -5,7 +5,7 @@ import "./App.css";
 import LeftLan from "./components/LeftLan";
 import MiddleLan from "./components/MiddleLan";
 import LoginMask from "./components/LoginMask";
-import { getTask } from "./actions";
+import { getTask, getStep} from "./actions";
 import RightLan from "./components/RightLan";
 
 function App() {
@@ -17,7 +17,9 @@ function App() {
   const [backColor, setBackColor] = useState("#fff");
   const [fontColor, setFontColor] = useState("#000");
   const [rightLan, setRightLan] = useState(false);
-  const [taskId, setTaskId] = useState(null);
+  const [task, setTask] = useState({});
+  const [stepList, setStepList] = useState([]);
+  const [fresh,setFresh] = useState(false);
 
   const freshList = user => {
     return getTask({ userId: user.userId }).then(({ data: taskListData }) => {
@@ -50,13 +52,21 @@ function App() {
     });
   };
 
+  const freshStep = (task) => {
+    setFresh(!fresh);
+    getStep({ taskId: task.id }).then(({ data: stepListData }) => {
+      setStepList(stepListData || [])
+      // console.log(stepListData)
+    })
+  }
+
   useEffect(() => {
     freshList(user).then((data)=>{
         setPageData(data[currentPage]);
       }
     );
-
-  }, [user,currentPage]);
+    freshStep(task);
+  }, [user,task,currentPage]);
 
   const getColor = (res) => {
     if (res.target.value === "light") {
@@ -69,12 +79,13 @@ function App() {
   }
 
   const OpenRightLan = (res) => {
-    if (res === taskId) {
+    console.log(res)
+    if (res.id === task.id) {
       setRightLan(!rightLan)
     } else {
       setRightLan(true)
-      setTaskId(res)
     }
+    setTask(res)
   }
 
   return (
@@ -120,6 +131,7 @@ function App() {
           alignItems: "center",
           flex: 1,
           color: backColor,
+          // height:"100%"
           // overflowY: "auto",
           // overflowX: "hidden"
         }}
@@ -127,7 +139,10 @@ function App() {
         <MiddleLan
           data={pageData}
           user={user}
+          fresh={fresh}
           taskList={taskList}
+          stepList={stepList}
+          freshStep={freshStep}
           update={() => {
             freshList(user);
           }}
@@ -145,8 +160,12 @@ function App() {
           }}
         >
           <RightLan
-            taskId={taskId}
+            task={task}
+            stepList={stepList}
             data={pageData}
+            update={() => {
+              freshStep(task)
+            }}
             fontColor={fontColor}
           />
         </div>}

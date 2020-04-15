@@ -13,7 +13,7 @@ router.post('/task', function (req, res) {
         if (err) {
             console.log(err);
             res.send({
-                status:-1,
+                status: -1,
                 msg: '添加任务失败'
             })
         } else {
@@ -234,13 +234,35 @@ router.get('/list', function (req, res) {
                     status: 1,
                     data: result
                 })
-            }else{
+            } else {
                 res.send({
                     status: 1,
-                    data:[]
+                    data: []
                 })
             }
 
+        }
+    })
+})
+
+//修改任务名
+router.post('/:id/name', function (req, res) {
+    console.log(req.params)
+    var taskId = req.params.id;
+    var name = req.body.name;
+    console.log('任务：' + taskId);
+    var sql = `update task set name="${name}" where taskId="${taskId}"`;
+    connection.query(sql, function (err, result) {
+        if (err) {
+            console.log(err);
+            res.send({
+                msg: "任务名更新失败"
+            })
+        } else {
+            res.send({
+                status: 1,
+                msg: name,
+            })
         }
     })
 })

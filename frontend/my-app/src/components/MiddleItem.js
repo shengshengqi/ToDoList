@@ -1,14 +1,29 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import "./MiddleItem.css";
 
 import IconElement from "./IconElement/index";
-
+import { getStep} from "../actions";
 // css bem 命名规范
 export default props => {
   const [iconDone, setIconDone] = useState(props.status === 1);
   const [iconStared, setIconStared] = useState(props.important === 1);
+  const [current, setCurrent] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const getStepNum = (taskId)=>{
+    getStep({ taskId: taskId }).then(({ data: stepListData }) => {
+      setCurrent(((stepListData || []).filter(e => e.status === 1)).length)
+      setTotal((stepListData || []).length)
+      // console.log(stepListData)
+    })
+  }
+
+  useEffect(() => {
+    getStepNum(props.id);
+  }, [props.id,props.fresh]);
+
   return (
     <div className="flex_item" style={{
       backgroundColor:props.background,
@@ -37,17 +52,15 @@ export default props => {
       />
       <div className="all_text">
         <p className="step_text">{props.p}</p>
-        {props.steps && (
           <p
             //if(props.steps)
             style={{
-              fontSize: 16
+              fontSize: 11
               //color:"#ffffff"
             }}
           >
-            第 {props.steps.current} 步，共 {props.steps.total} 步
+            第 {current} 步，共 {total} 步
           </p>
-        )}
       </div>
 
       <IconElement

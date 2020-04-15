@@ -23,6 +23,10 @@ export const getTask = (payload) => {
   return get('/task/list', payload, payload)
 }
 
+export const reTaskName = (taskId,payload) =>{
+  return post(`/task/${taskId}/name`,payload)
+}
+
 export const finishTask = (taskId, payload) => {
   return put(`/task/${taskId}/finish`, payload)
 }
@@ -39,6 +43,7 @@ export const unStarTask = (taskId, payload) => {
   return post(`/task/${taskId}/unImportance`, payload)
 }
 
+//step
 export const addStep = (taskId,payload) => {
   return post(`/step/${taskId}/step`,payload)
 }
@@ -53,4 +58,8 @@ export const finishStep = (stepId, payload) => {
 
 export const cancelStep = (stepId, payload) => {
   return put(`/step/${stepId}/cancel`, payload)
+}
+
+export const reStepName = (stepId,payload) =>{
+  return post(`/step/${stepId}/name`,payload)
 }

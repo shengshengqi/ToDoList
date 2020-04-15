@@ -5,7 +5,7 @@ import Title from "./Title";
 import MiddleItem from "./MiddleItem";
 import Addition from "./Addition";
 
-import { addTask, finishTask, cancelTask, starTask, unStarTask } from "../actions";
+import { addTask, finishTask, cancelTask, starTask, unStarTask} from "../actions";
 export default props => {
   const [taskList, setTaskList] = useState([]);
   const additionElement = useRef();
@@ -35,7 +35,6 @@ export default props => {
     } else {
       setTaskList(props.taskList)
     }
-
   }, [props.taskList, props.data]);
 
   return (
@@ -57,6 +56,7 @@ export default props => {
         {taskList.map(task => (
           <MiddleItem
             p={task.name}
+            fresh={props.fresh}
             key={task.taskId}
             id={task.taskId}
             status={task.status}
@@ -92,7 +92,12 @@ export default props => {
               });
             }}
             onClick={() => {
-              props.OpenRightLan(task.taskId);
+              // console.log(task.taskId)
+              props.OpenRightLan({
+                id:task.taskId,
+                name:task.name,
+                status:task.status,
+              });
             }}
           />
         ))}
